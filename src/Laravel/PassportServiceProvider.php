@@ -11,6 +11,7 @@ use Laravel\Passport\Bridge\ClientRepository;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Key\InMemory;
 use League\OAuth2\Server\AuthorizationServer;
+use League\OAuth2\Server\ResponseTypes\ResponseTypeInterface;
 use Nyholm\Psr7\Response;
 use OpenIDConnect\ClaimExtractor;
 use OpenIDConnect\Claims\ClaimSet;
@@ -19,7 +20,7 @@ use OpenIDConnect\IdTokenResponse;
 
 class PassportServiceProvider extends Passport\PassportServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         parent::register();
 
@@ -29,7 +30,7 @@ class PassportServiceProvider extends Passport\PassportServiceProvider
         );
     }
 
-    public function boot()
+    public function boot(): void
     {
         parent::boot();
 
@@ -47,7 +48,7 @@ class PassportServiceProvider extends Passport\PassportServiceProvider
         $this->registerClaimExtractor();
     }
 
-    public function makeAuthorizationServer(): AuthorizationServer
+    public function makeAuthorizationServer(ResponseTypeInterface|null $responseType = null): AuthorizationServer
     {
         $cryptKey = $this->makeCryptKey('private');
         $encryptionKey = app(Encrypter::class)->getKey();
@@ -78,7 +79,7 @@ class PassportServiceProvider extends Passport\PassportServiceProvider
      *
      * @return AuthCodeGrant
      */
-    protected function buildAuthCodeGrant()
+    protected function buildAuthCodeGrant(): \League\OAuth2\Server\Grant\AuthCodeGrant
     {
         return new AuthCodeGrant(
             $this->app->make(Passport\Bridge\AuthCodeRepository::class),

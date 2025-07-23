@@ -25,17 +25,19 @@
     "require": {
         "php": "^8.0",
         "lcobucci/jwt": "^5.0",
-        "league/oauth2-server": "^9.0.0"
+        "league/oauth2-server": "^9.0.0",
+        "nyholm/psr7": "^1.8"
     },
     "require-dev": {
         "guzzlehttp/psr7": "^2.0",
         "http-interop/http-factory-guzzle": "^1.0",
-        "overtrue/phplint": "^2.3",
+        "overtrue/phplint": "^9.6",
         "phpunit/phpunit": "^9.4.2",
         "slevomat/coding-standard": "^6.4.1",
         "slim/slim": "4.*",
         "symplify/easy-coding-standard": "^9.2",
-        "league/oauth2-client": "^2.6"
+        "league/oauth2-client": "^2.6",
+        "laravel/passport": "^13.0"
     },
     "autoload": {
         "psr-4": {
@@ -70,7 +72,8 @@
     },
     "config": {
         "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "php-http/discovery": true
         }
     }
 }
