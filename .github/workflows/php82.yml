@@ -7,9 +7,12 @@ on:
   pull_request:
 
 jobs:
-  php80:
-    name: Check PHP 8.2
+  php:
+    name: Test on PHP ${{ matrix.php-version }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: [8.0, 8.1, 8.2]
 
     steps:
       - name: Checkout code
@@ -18,7 +21,7 @@ jobs:
       - name: Install dependencies
         uses: php-actions/composer@v5
         with:
-          php_version: 8.2
+          php_version: ${{ matrix.php-version }}
           args: --prefer-dist --ignore-platform-reqs
 
       - name: Check code styling
@@ -28,4 +31,4 @@ jobs:
         run: ./bin/create_keys
 
       - name: Run unit and feature tests
-        run: composer test
+        run: vendor/bin/phpunit
