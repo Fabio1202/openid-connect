@@ -12,17 +12,14 @@ use OpenIDConnect\Entities\ScopeEntity;
 class ScopeRepository implements ScopeRepositoryInterface
 {
     public function finalizeScopes(
-        array $scopes,
-        $grantType,
-        ClientEntityInterface $clientEntity,
-        $userIdentifier = null
-    ) {
+        array $scopes, $grantType, ClientEntityInterface $clientEntity, $userIdentifier = null, ?string $authCodeId = null): array
+    {
         return array_filter($scopes, function (ScopeEntityInterface $scope) {
             return $this->getScopeEntityByIdentifier($scope->getIdentifier());
         });
     }
 
-    public function getScopeEntityByIdentifier($identifier)
+    public function getScopeEntityByIdentifier($identifier): ?ScopeEntityInterface
     {
         $scopes = [
             'openid' => ['description' => 'Enable OpenID Connect'],
@@ -33,7 +30,7 @@ class ScopeRepository implements ScopeRepositoryInterface
         ];
 
         if (array_key_exists($identifier, $scopes) === false) {
-            return;
+            return null;
         }
 
         $scope = new ScopeEntity();

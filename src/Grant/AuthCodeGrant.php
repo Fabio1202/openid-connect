@@ -44,7 +44,7 @@ class AuthCodeGrant extends \League\OAuth2\Server\Grant\AuthCodeGrant
     /**
      * {@inheritdoc}
      */
-    public function completeAuthorizationRequest(AuthorizationRequest $authorizationRequest)
+    public function completeAuthorizationRequest(AuthorizationRequest|\League\OAuth2\Server\RequestTypes\AuthorizationRequestInterface $authorizationRequest): \League\OAuth2\Server\ResponseTypes\ResponseTypeInterface
     {
         // See https://github.com/steverhoades/oauth2-openid-connect-server/issues/47#issuecomment-1228370632
 

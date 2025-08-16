@@ -9,7 +9,7 @@ use OpenIDConnect\Entities\ClientEntity;
 
 class ClientRepository implements ClientRepositoryInterface
 {
-    public function getClientEntity($clientIdentifier)
+    public function getClientEntity($clientIdentifier): ?\League\OAuth2\Server\Entities\ClientEntityInterface
     {
         $client = new ClientEntity();
         $client->setIdentifier('1');
@@ -18,7 +18,7 @@ class ClientRepository implements ClientRepositoryInterface
         return $client;
     }
 
-    public function validateClient($clientIdentifier, $clientSecret, $grantType)
+    public function validateClient($clientIdentifier, $clientSecret, $grantType): bool
     {
         return true;
     }
